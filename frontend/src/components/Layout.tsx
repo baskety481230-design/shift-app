@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import clsx from "clsx";
 import type { UserSelf } from "@/types";
 import { useAuth } from "@/hooks/useAuth";
+import { isMockMode } from "@/lib/api";
 import { brandStyle } from "@/lib/theme";
 
 interface NavItem {
@@ -25,6 +26,11 @@ export function Layout({ user, children }: { user: UserSelf; children: React.Rea
 
   return (
     <div className="bg-pattern min-h-full">
+      {isMockMode && (
+        <div className="bg-amber-100 border-b border-amber-200 px-4 py-1.5 text-center text-[11px] text-amber-800">
+          🛈 デモ版です — ブラウザ内のサンプルデータで動作中。リロードで初期化されます。
+        </div>
+      )}
       {/* Top bar (PC) */}
       <header className="sticky top-0 z-30 hidden border-b border-ink-200/70 bg-white/80 backdrop-blur md:block">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">

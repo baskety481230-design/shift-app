@@ -1,5 +1,8 @@
 const BASE_URL = (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
-const USE_MOCK = import.meta.env.DEV && import.meta.env.VITE_MOCK_API === "1";
+// VITE_MOCK_API=1 enables an in-browser mock backend (works in dev AND prod builds — for demo deployments)
+const USE_MOCK = import.meta.env.VITE_MOCK_API === "1";
+
+export const isMockMode = USE_MOCK;
 
 export class ApiError extends Error {
   constructor(public status: number, public detail: string) {
