@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-h: 220;
+  --brand-s: 90%;
+  --brand-l: 56%;
+  --brand: hsl(var(--brand-h) var(--brand-s) var(--brand-l));
+  --brand-50: hsl(var(--brand-h) var(--brand-s) 96%);
+  --brand-100: hsl(var(--brand-h) var(--brand-s) 92%);
+  --brand-600: hsl(var(--brand-h) var(--brand-s) 48%);
+  --brand-700: hsl(var(--brand-h) var(--brand-s) 40%);
+  --pattern: none;
+}
+
+html, body, #root { height: 100%; }
+body {
+  font-feature-settings: "palt";
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+/* Brand button utility */
+.btn { @apply inline-flex items-center justify-center gap-1.5 rounded-xl px-4 py-2 text-sm font-medium transition active:scale-[0.98]; }
+.btn-primary { background: var(--brand); color: white; }
+.btn-primary:hover { background: var(--brand-700); }
+.btn-ghost { @apply text-ink-900 hover:bg-ink-100; }
+.btn-outline { @apply border border-ink-200 text-ink-900 hover:bg-ink-50; }
+
+.card { @apply rounded-2xl bg-white shadow-card border border-ink-200/60; }
+
+input, select, textarea {
+  @apply rounded-xl border border-ink-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-0;
+}
+input:focus, select:focus, textarea:focus { box-shadow: 0 0 0 3px hsl(var(--brand-h) var(--brand-s) 88%); border-color: var(--brand); }
+
+.chip { @apply inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium; }
+.chip-draft     { @apply bg-ink-100 text-ink-600; }
+.chip-requested { @apply bg-amber-100 text-amber-800; }
+.chip-approved  { @apply bg-emerald-100 text-emerald-800; }
+.chip-rejected  { @apply bg-rose-100 text-rose-700; }
+
+.bg-pattern {
+  background-image: var(--pattern);
+}

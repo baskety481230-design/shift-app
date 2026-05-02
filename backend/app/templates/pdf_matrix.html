@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>{{ year }}年{{ month }}月 シフト表</title>
+<style>
+  @page { size: A4 {{ orientation }}; margin: 12mm; }
+  body { font-family: "Noto Sans CJK JP", "Hiragino Sans", "Yu Gothic", sans-serif; font-size: 9pt; color: #1f2937; }
+  h1 { font-size: 14pt; margin: 0 0 8px; }
+  .sub { color: #6b7280; font-size: 8.5pt; margin-bottom: 8px; }
+  table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  th, td { border: 1px solid #d1d5db; padding: 2px 3px; text-align: center; vertical-align: middle; }
+  th { background: #f3f4f6; font-weight: 600; }
+  th.name, td.name { text-align: left; padding: 2px 6px; width: 90px; }
+  td.day { font-size: 7.5pt; line-height: 1.15; }
+  .sat { background: #eff6ff; }
+  .sun { background: #fef2f2; }
+  .total { font-weight: 600; }
+  .shift-chip { display: block; }
+</style>
+</head>
+<body>
+  <h1>{{ year }}年 {{ month }}月 シフト表</h1>
+  <div class="sub">確定シフトのみ表示 / 30分単位</div>
+  <table>
+    <thead>
+      <tr>
+        <th class="name">名前</th>
+        {% for d in days %}
+          {% set wd = weekdays[loop.index0] %}
+          <th class="{% if wd == '土' %}sat{% elif wd == '日' %}sun{% endif %}">{{ d }}<br><span style="font-weight:400;font-size:7.5pt;">{{ wd }}</span></th>
+        {% endfor %}
+        <th>合計(h)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in users %}
+      <tr>
+        <td class="name">{{ u.name }}</td>
+        {% for d in days %}
+          {% set wd = weekdays[loop.index0] %}
+          <td class="day {% if wd == '土' %}sat{% elif wd == '日' %}sun{% endif %}">
+            {% for s in matrix[u.id][d] %}
+              <span class="shift-chip">{{ format_time(s.start_time) }}-{{ format_time(s.end_time) }}</span>
+            {% endfor %}
+          </td>
+        {% endfor %}
+        <td class="total">{{ totals_hours[u.id] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
