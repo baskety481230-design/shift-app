@@ -12,6 +12,7 @@ dist/
 dev-dist/
 build/
 .vite/
+*.tsbuildinfo
 
 # Env
 .env
